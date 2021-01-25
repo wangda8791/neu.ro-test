@@ -14,8 +14,8 @@ In the project directory, you can run:
 
 Copy .env.sample file to .env and configure `REACT_APP_BASE_API_URL` and `REACT_APP_USER_TOKEN`
 
-`REACT_APP_BASE_API_URL` is Root API endpoint for the dev environment of Neu.ro\
-`REACT_APP_USER_TOKEN` is Bearer token for user
+`REACT_APP_BASE_API_URL` is Root API endpoint for the dev environment of Neu.ro ending with slash(/).\
+`REACT_APP_USER_TOKEN` is Bearer token for user.
 
 ### 3. Start in dev mode
 
