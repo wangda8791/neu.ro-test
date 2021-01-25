@@ -62,7 +62,6 @@ export default function AddSecretDialog() {
         <DialogContent display="flex">
           <form className={classes.form} noValidate>
             <FormControl>
-              <InputLabel htmlFor="key">Key</InputLabel>
               <TextField
                 autoFocus
                 id="key"
