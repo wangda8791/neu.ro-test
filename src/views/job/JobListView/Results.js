@@ -43,13 +43,16 @@ const Results = ({ className, jobs, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Id</TableCell>
-                <TableCell>Owner</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Image</TableCell>
+                <TableCell>URI</TableCell>
                 <TableCell>Cluster</TableCell>
+                <TableCell>Owner</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {jobs.slice(0, limit).map((job) => (
+              {jobs.slice(page * limit, (page + 1) * limit).map((job) => (
                 <TableRow hover key={job.id}>
                   <TableCell>
                     <Box alignItems="center" display="flex">
@@ -58,8 +61,15 @@ const Results = ({ className, jobs, ...rest }) => {
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell>{job.owner}</TableCell>
+                  <TableCell>
+                    <a href={job.http_url} target="_blank" rel="noreferrer">
+                      {job.name}
+                    </a>
+                  </TableCell>
+                  <TableCell>{job.container.image}</TableCell>
+                  <TableCell>{job.uri}</TableCell>
                   <TableCell>{job.cluster_name}</TableCell>
+                  <TableCell>{job.owner}</TableCell>
                   <TableCell>{job.status}</TableCell>
                 </TableRow>
               ))}

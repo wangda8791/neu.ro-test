@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import {
@@ -11,6 +11,8 @@ import {
   CardContent,
   makeStyles,
 } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { fetchJobRequest } from "../../../store/job/jobActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -25,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Toolbar = ({ className, clusters, ...rest }) => {
   const classes = useStyles();
+  const [cluster, setCluster] = useState("all");
+  const dispatch = useDispatch();
 
   return (
     <div className={clsx(classes.root, className)} {...rest}>
@@ -40,12 +44,19 @@ const Toolbar = ({ className, clusters, ...rest }) => {
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
                   label="Cluster name"
+                  value={cluster}
+                  onChange={(e) => {
+                    setCluster(e.target.value);
+                    dispatch(fetchJobRequest(null, e.target.value));
+                  }}
                 >
-                  <MenuItem value="">
+                  <MenuItem value="all" key="all">
                     <em>All clusters</em>
                   </MenuItem>
                   {clusters.map((cluster) => (
-                    <MenuItem value={cluster.name}>{cluster.name}</MenuItem>
+                    <MenuItem value={cluster.name} key={cluster.name}>
+                      {cluster.name}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>

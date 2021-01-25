@@ -5,15 +5,19 @@ import { ThemeProvider } from "@material-ui/core";
 import GlobalStyles from "./components/GlobalStyles";
 import theme from "./theme";
 import routes from "./routes";
+import store from "./store";
+import { Provider } from "react-redux";
 
 const App = () => {
   const routing = useRoutes(routes);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      {routing}
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        {routing}
+      </ThemeProvider>
+    </Provider>
   );
 };
 

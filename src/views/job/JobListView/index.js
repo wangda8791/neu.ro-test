@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Container, makeStyles } from "@material-ui/core";
 import Page from "../../../components/Page";
 import Results from "./Results";
 import Toolbar from "./Toolbar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchConfigRequest } from "../../../store/config/configActions";
+import { fetchJobRequest } from "../../../store/job/jobActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,21 +18,14 @@ const useStyles = makeStyles((theme) => ({
 
 const JobListView = () => {
   const classes = useStyles();
-  const clusters = [
-    {
-      name: "xxx",
-    },
-  ];
-  const jobs = [
-    {
-      id: "job-73746599-f792-4c7d-905d-f345d404de2c",
-      owner: "neuro-cli-e2e",
-      cluster_name: "default",
-      status: "running",
-      uri:
-        "job://default/neuro-cli-e2e/job-73746599-f792-4c7d-905d-f345d404de2c",
-    },
-  ];
+  const clusters = useSelector((state) => state.config.clusters);
+  const jobs = useSelector((state) => state.job.jobs);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchConfigRequest());
+    dispatch(fetchJobRequest(null, null));
+  }, [dispatch]);
 
   return (
     <Page className={classes.root} title="Jobs">

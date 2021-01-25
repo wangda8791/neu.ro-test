@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import {
   Input,
@@ -11,6 +11,8 @@ import {
   DialogContent,
   DialogTitle,
 } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { createSecretRequest } from "../../../../store/secret/secretActions";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -24,14 +26,24 @@ const useStyles = makeStyles(() =>
 
 export default function AddSecretDialog() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [key, setKey] = useState("");
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
+    setKey("");
+    setValue("");
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleAdd = () => {
+    dispatch(createSecretRequest(key, value));
+    handleClose();
   };
 
   return (
@@ -51,7 +63,15 @@ export default function AddSecretDialog() {
           <form className={classes.form} noValidate>
             <FormControl>
               <InputLabel htmlFor="key">Key</InputLabel>
-              <TextField autoFocus id="key" label="Key" type="text" fullWidth />
+              <TextField
+                autoFocus
+                id="key"
+                label="Key"
+                type="text"
+                value={key}
+                fullWidth
+                onChange={(e) => setKey(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <InputLabel htmlFor="value">Value</InputLabel>
@@ -60,9 +80,11 @@ export default function AddSecretDialog() {
                 placeholder="Value"
                 label="Value"
                 type="text"
+                value={value}
                 rows="5"
                 multiline
                 fullWidth
+                onChange={(e) => setValue(e.target.value)}
               />
             </FormControl>
           </form>
@@ -71,7 +93,7 @@ export default function AddSecretDialog() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleAdd} color="primary">
             Add
           </Button>
         </DialogActions>

@@ -5,7 +5,6 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -43,16 +42,16 @@ const Results = ({ className, secrets, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Key</TableCell>
-                <TableCell>Value</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {secrets.slice(0, limit).map((secret) => (
-                <TableRow hover key={secret.id}>
-                  <TableCell>{secret.key}</TableCell>
-                  <TableCell>{secret.value}</TableCell>
-                </TableRow>
-              ))}
+              {secrets
+                .slice(page * limit, (page + 1) * limit)
+                .map((secret, index) => (
+                  <TableRow hover key={secret.key + index}>
+                    <TableCell>{secret.key}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </Box>
