@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with Neu.ro Test App
 
 ## Available Scripts
 
