@@ -10,7 +10,7 @@ In the project directory, you can run:
 
 ### 2. Configure environment variables
 
-`cp .env.sample .env`
+`copy .env.sample .env`
 
 Copy .env.sample file to .env and configure `REACT_APP_BASE_API_URL` and `REACT_APP_USER_TOKEN`
 
